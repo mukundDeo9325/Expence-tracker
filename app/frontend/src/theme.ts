@@ -36,53 +36,30 @@ import { Appearance, StyleSheet, useColorScheme } from "react-native";
 export type ColorScheme = "light" | "dark";
 
 const light = {
-  // ---------------------------------------------------------------------------
-  // Surfaces: backgrounds, from the screen down to small fills.
-  // Each `on` key is the text and icon color for that background.
-  // ---------------------------------------------------------------------------
-  surface: "#FFFFFF", // primary canvas, most of every screen
-  onSurface: "#111827", // text and icons on the canvas
-  surfaceSecondary: "#F9FAFB", // cards, sheets, list rows
-  onSurfaceSecondary: "#374151", // text and icons on cards, sheets, rows
-  surfaceTertiary: "#F3F4F6", // input backgrounds, chips, deepest nesting
-  onSurfaceTertiary: "#4B5563", // text on inputs and chips; also muted text
-  surfaceInverse: "#1F2937", // tooltips, snackbars, anything popping against the theme
-  onSurfaceInverse: "#FFFFFF", // text and icons on the inverse surface
-  muted: "#6B7280", // subdued text on surface: captions, timestamps, placeholders
-
-  // ---------------------------------------------------------------------------
-  // Brand: the identity color and the fills built from it.
-  // Neutral by default; replace with the design guidelines values.
-  // ---------------------------------------------------------------------------
-  brand: "#111827", // base hue, anchor only; Primary, Secondary, Tertiary are weights of it
+  surface: "#F8F9FA", // primary canvas, most of every screen
+  onSurface: "#1A1D1E", // text and icons on the canvas
+  surfaceSecondary: "#FFFFFF", // cards, sheets, list rows
+  onSurfaceSecondary: "#1A1D1E", // text and icons on cards, sheets, rows
+  surfaceTertiary: "#E9ECEF", // input backgrounds, chips, deepest nesting
+  onSurfaceTertiary: "#495057", // text on inputs and chips; also muted text
+  surfaceInverse: "#212529", // tooltips, snackbars, anything popping against the theme
+  onSurfaceInverse: "#F8F9FA", // text on the inverse surface
+  muted: "#718096", // subdued text on surface: captions, timestamps, placeholders
+  brand: "#38A169", // base hue, anchor only; Primary, Secondary, Tertiary are weights of it
   onBrand: "#FFFFFF", // text and icons placed directly on brand
-  brandPrimary: "#111827", // primary CTA, active tab indicator, selected states
+  brandPrimary: "#2F855A", // primary CTA, active tab indicator, selected states
   onBrandPrimary: "#FFFFFF", // text and icons on brandPrimary
-  brandSecondary: "#E5E7EB", // secondary CTA, less prominent accents
-  onBrandSecondary: "#111827", // text and icons on brandSecondary
-  brandTertiary: "#F3F4F6", // chips, tags, badges, subtle brand moments
-  onBrandTertiary: "#111827", // text and icons on brandTertiary
-
-  // ---------------------------------------------------------------------------
-  // Status: semantic only, never decorative. Fill for badges, banners and
-  // toasts; the `on` key is text on that fill. The plain key is also safe as
-  // text on `surface`.
-  // ---------------------------------------------------------------------------
-  success: "#15803D",
-  onSuccess: "#FFFFFF",
-  warning: "#B45309",
-  onWarning: "#FFFFFF",
-  error: "#B91C1C",
-  onError: "#FFFFFF",
-  info: "#1D4ED8",
-  onInfo: "#FFFFFF",
-
-  // ---------------------------------------------------------------------------
-  // Lines
-  // ---------------------------------------------------------------------------
-  border: "#E5E7EB", // hairline outline, 0.5pt or 1pt max: inputs, cards
-  borderStrong: "#D1D5DB", // focus rings, selected outlines, 1.5pt max
-  divider: "#E5E7EB", // subtle list separators
+  brandSecondary: "#48BB78", // secondary CTA, less prominent accents
+  onBrandSecondary: "#1A1D1E", // text and icons on brandSecondary
+  brandTertiary: "#E6FFFA", // chips, tags, badges, subtle brand moments
+  onBrandTertiary: "#234E52", // text and icons on brandTertiary
+  success: "#38A169",
+  warning: "#D69E2E",
+  error: "#E53E3E",
+  info: "#3182CE",
+  border: "#E2E8F0", // hairline outline, 0.5pt or 1pt max: inputs, cards
+  borderStrong: "#CBD5E0", // focus rings, selected outlines, 1.5pt max
+  divider: "#EDF2F7", // subtle list separators
 };
 
 export type ThemeColors = typeof light;

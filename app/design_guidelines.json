@@ -1,0 +1,138 @@
+{
+  "app_name": "TrackMySpends",
+  "personality": "1 iOS-Native Clean",
+  "personality_one_liner": "A calm, highly focused personal finance companion designed for lightning-fast two-tap expense logging and instant budget clarity.",
+  "color": {
+    "surface": "#F8F9FA",
+    "onSurface": "#1A1D1E",
+    "surfaceSecondary": "#FFFFFF",
+    "onSurfaceSecondary": "#1A1D1E",
+    "surfaceTertiary": "#E9ECEF",
+    "onSurfaceTertiary": "#495057",
+    "surfaceInverse": "#212529",
+    "onSurfaceInverse": "#F8F9FA",
+    "brand": "#38A169",
+    "brandPrimary": "#2F855A",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#48BB78",
+    "onBrandSecondary": "#1A1D1E",
+    "brandTertiary": "#E6FFFA",
+    "onBrandTertiary": "#234E52",
+    "success": "#38A169",
+    "onSuccess": "#FFFFFF",
+    "warning": "#D69E2E",
+    "onWarning": "#FFFFFF",
+    "error": "#E53E3E",
+    "onError": "#FFFFFF",
+    "info": "#3182CE",
+    "onInfo": "#FFFFFF",
+    "border": "#E2E8F0",
+    "borderStrong": "#CBD5E0",
+    "divider": "#EDF2F7",
+    "muted": "#718096",
+    "onBrand": "#FFFFFF"
+  },
+  "typography": {
+    "displayFontFamily": "PlusJakartaSans-Medium",
+    "textFontFamily": "PlusJakartaSans-Regular",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous iOS padding and comfortable vertical rhythm with precise touch targets >= 44x44pt.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "1",
+  "navigation": "bottom_tabs",
+  "icon_set": "Ionicons",
+  "glassmorphism": {
+    "enabled": true,
+    "do's": [
+      "Use frosted glass header and sticky bottom bar over scrolling content",
+      "Apply translucent surface tint on floating action buttons and modal sheets"
+    ],
+    "dont's": [
+      "Never apply blur to form inputs or body text regions",
+      "Never stack more than two glass layers simultaneously"
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Dashboard",
+      "purpose": "Overview of today's total, monthly budget progress, category breakdown chart, and recent expense logs.",
+      "states": {
+        "loading": "Centered minimalist spinner with botanical brand tone",
+        "empty": "Clean illustration with message 'No expenses logged yet. Tap + to add your first expense!' and Add Expense CTA",
+        "error": "Readable alert card with Retry button and local storage recovery fallback"
+      },
+      "layout": "Sticky glass header with app title and month badge, followed by a monthly budget progress card showing ₹15,000 limit vs spent, quick summary pills for Today and This Month, category breakdown visual chart, and a chronologically grouped recent transactions list with category icons and note previews."
+    },
+    {
+      "name": "AddExpense",
+      "purpose": "Lightning-fast two-tap modal/screen to log an expense with amount, category selection, and optional note.",
+      "states": {
+        "loading": "Quick modal entry with pre-focused amount keypad",
+        "empty": "Category selector ready with Groceries, Fuel, Electricity, Eating out, and Recharge chips",
+        "error": "Inline validation banner if amount is missing or invalid"
+      },
+      "layout": "Bottom sheet or full-screen modal with large numeric amount input, horizontal/grid category chips with icons, optional note text input, and a sticky primary Save button with haptic feedback."
+    },
+    {
+      "name": "Analytics",
+      "purpose": "Detailed category-wise spending breakdown and budget utilization analysis.",
+      "states": {
+        "loading": "Centered skeleton bars for category distribution",
+        "empty": "Empty state prompting at least one expense entry to generate charts",
+        "error": "Standard error view with retry action"
+      },
+      "layout": "Scrollable stats view with monthly budget status, category progress bars with percentage indicators, and historical spending comparisons."
+    },
+    {
+      "name": "Settings",
+      "purpose": "Manage monthly budget limit (default ₹15000), export/import data, and view local storage stats.",
+      "states": {
+        "loading": "Standard list loading skeleton",
+        "empty": "N/A",
+        "error": "Error toast on storage read/write failure"
+      },
+      "layout": "Clean iOS grouped list with budget configuration stepper, data reset/export options, and app info."
+    }
+  ],
+  "images": {
+    "groceries_banner": {
+      "url": "https://images.unsplash.com/photo-1590779033100-9f60a05a013d",
+      "alt": "Fresh grocery items flat lay"
+    }
+  },
+  "instructions_to_main_agent": "Ensure lightning-fast local storage persistence using AsyncStorage for zero login and 100% offline-first reliability. Keep all text in simple English. Maintain strict WCAG AA contrast, touch targets >= 44x44pt, and zero banned colors (no indigo, violet, purple, or navy). Pin the primary Add Expense action accessibly. Use Plus Jakarta Sans font pairing and iOS-native clean aesthetics."
+}
+

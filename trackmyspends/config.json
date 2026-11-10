@@ -1,0 +1,13 @@
+{
+  "name": "trackmyspends",
+  "displayName": "TrackMySpends",
+  "version": "1.0.0",
+  "backend": {
+    "host": "0.0.0.0",
+    "port": 8001,
+    "entry": "server:app"
+  },
+  "frontend": {
+    "port": 8081
+  }
+}

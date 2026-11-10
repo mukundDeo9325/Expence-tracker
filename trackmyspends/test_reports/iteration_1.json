@@ -1,0 +1,91 @@
+{
+  "iteration": 1,
+  "date": "2026-11-10",
+  "environment": {
+    "node": "22.23.4",
+    "yarn": "1.22.22",
+    "python": "3.13.18",
+    "backend_database": "mongomock-motor (in-memory stand-in, not a real MongoDB)"
+  },
+  "summary": {
+    "backend_api": "20/20 passed",
+    "frontend_storage_logic": "6/6 passed",
+    "tooling_checks": "all passed",
+    "not_covered": [
+      "Backend against a real MongoDB server",
+      "The app UI in a browser, simulator or on a device",
+      "./entrypoint.sh frontend (expo start) and ./entrypoint.sh with no argument",
+      "uploadExpenses() against a running backend"
+    ]
+  },
+  "backend_api": {
+    "method": "FastAPI TestClient against backend/server.py with the database replaced by mongomock-motor",
+    "caveat": "mongomock's bulk builder does not accept the `sort` argument that pymongo 4.18.2 sends, so the test dropped that argument. Real MongoDB is not affected, but the bulk endpoint has only been exercised against the stand-in.",
+    "results": [
+      { "name": "GET /health returns ok", "passed": true },
+      { "name": "GET /api/ returns hello", "passed": true },
+      { "name": "POST /api/status (original route) works", "passed": true },
+      { "name": "GET /api/status (original route) lists it", "passed": true },
+      { "name": "POST /api/expenses creates (201)", "passed": true },
+      { "name": "created expense gets id and createdAt", "passed": true },
+      { "name": "amount of 0 is rejected (422)", "passed": true },
+      { "name": "negative amount is rejected (422)", "passed": true },
+      { "name": "unknown category is rejected (422)", "passed": true },
+      { "name": "GET /api/expenses lists all, newest first", "passed": true },
+      { "name": "listed createdAt carries a timezone (ends with Z)", "passed": true },
+      { "name": "limit query param is respected", "passed": true },
+      { "name": "limit=0 is rejected (422)", "passed": true },
+      { "name": "POST /api/expenses/bulk saves 2", "passed": true },
+      { "name": "bulk is idempotent (no duplicates on repeat)", "passed": true },
+      { "name": "bulk updates an existing expense", "passed": true },
+      { "name": "bulk with empty list saves 0", "passed": true },
+      { "name": "bulk rejects an invalid expense (422)", "passed": true },
+      { "name": "DELETE existing expense returns 204", "passed": true },
+      { "name": "DELETE missing expense returns 404", "passed": true }
+    ]
+  },
+  "frontend_storage_logic": {
+    "method": "frontend/src/expenses.ts run under Node with an in-memory stand-in for the storage module",
+    "results": [
+      { "name": "empty storage gives an empty list", "passed": true },
+      { "name": "save then load round-trips", "passed": true },
+      { "name": "saved under the documented key", "passed": true },
+      { "name": "corrupt JSON gives an empty list", "passed": true },
+      { "name": "non-array JSON gives an empty list", "passed": true },
+      { "name": "invalid rows are skipped, the valid one is kept", "passed": true }
+    ]
+  },
+  "tooling_checks": [
+    { "name": "yarn install (preinstall guard runs and passes under yarn)", "passed": true },
+    { "name": "yarn install --frozen-lockfile with the delivered package.json and yarn.lock", "passed": true },
+    { "name": "tsc --noEmit", "passed": true },
+    { "name": "eslint .", "passed": true },
+    { "name": "expo export --platform web (production bundle builds)", "passed": true },
+    { "name": "scripts/cmd-guard.js blocks npm, allows yarn, honours ALLOW_NON_YARN=1", "passed": true },
+    { "name": "scripts/reset-project.js moves app/ and src/, creates a blank app/, refuses a second run", "passed": true },
+    { "name": "entrypoint.sh: bash -n, help, unknown argument exits 1", "passed": true },
+    { "name": "entrypoint.sh backend: creates venv, installs requirements without emergentintegrations, /health returns 200 (about 84s on first run)", "passed": true }
+  ],
+  "problems_found_and_fixed": [
+    {
+      "where": "frontend/package.json",
+      "problem": "app/index.tsx imports @expo/vector-icons but it was not a declared dependency, so the app could not bundle.",
+      "fix": "Added @expo/vector-icons ^15.0.2, the version listed in the Expo SDK's own manifest."
+    },
+    {
+      "where": "frontend/src/theme.ts",
+      "problem": "tsc failed: StyleSheet.NamedStyles is not exported by the React Native 0.88 types.",
+      "fix": "Declared the style shape locally in makeStyles. Behaviour is unchanged."
+    },
+    {
+      "where": "frontend/app/index.tsx",
+      "problem": "eslint reported errors on the manual useMemo for this month's expenses (complex dependency list, then a React Compiler memoization error).",
+      "fix": "Replaced it with a plain filter. The result is identical and the React Compiler memoizes it."
+    },
+    {
+      "where": "backend/server.py",
+      "problem": "GET /api/expenses returned createdAt without a timezone, because MongoDB returns naive UTC datetimes. Clients would read it as local time and show the wrong time.",
+      "fix": "Added a validator on Expense that marks naive datetimes as UTC. A check for it was added to the test run."
+    }
+  ]
+}
